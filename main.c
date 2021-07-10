@@ -172,8 +172,6 @@ static void buildReport(void){
             reportBuffer[2] = key;
 #endif
         }
-
-
         if (buttonChanged_B2 == 1){
             if (buttonState_B2 != 0){ // if button 2 is pressed
                 key = 0; //button released event
