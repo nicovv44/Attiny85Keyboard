@@ -1,5 +1,13 @@
 # Attiny85Keyboard
-A tiny keyboard to send some shortcuts with some buttons
+
+A tiny keyboard to send some shortcuts with some buttons.
+
+The initial idea was to mute/unmute myself on Zoom with a button, hahaha!
+
+
+## Schematic
+
+![Schematic](4-key-keyboard-component-layout.gif)
 
 
 ## Credits
