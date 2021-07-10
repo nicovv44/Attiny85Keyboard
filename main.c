@@ -35,18 +35,22 @@ LOW:     0xC1
 #define BUTTON_PORT_B1 PORTB       /* PORTx - register for BUTTON 1 output */
 #define BUTTON_PIN_B1 PINB         /* PINx - register for BUTTON 1 input */
 #define BUTTON_BIT_B1 PB1          /* bit for BUTTON 1 input/output */
+//#define BUTTON_1_USED              /* Button 1 does something */
 
 #define BUTTON_PORT_B2 PORTB       /* PORTx - register for BUTTON 2 output */
 #define BUTTON_PIN_B2 PINB         /* PINx - register for BUTTON 2 input */
 #define BUTTON_BIT_B2 PB4          /* bit for BUTTON 2 input/output */
+//#define BUTTON_2_USED              /* Button 2 does something */
 
 #define BUTTON_PORT_B3 PORTB       /* PORTx - register for BUTTON 3 output */
 #define BUTTON_PIN_B3 PINB         /* PINx - register for BUTTON 3 input */
 #define BUTTON_BIT_B3 PB5          /* bit for BUTTON 3 input/output */
+//#define BUTTON_3_USED              /* Button 3 does something */
 
 #define BUTTON_PORT_B4 PORTB       /* PORTx - register for BUTTON 4 output */
 #define BUTTON_PIN_B4 PINB         /* PINx - register for BUTTON 4 input */
 #define BUTTON_BIT_B4 PB3          /* bit for BUTTON 4 input/output */
+#define BUTTON_4_USED              /* Button 4 does something */
 
 /* ------------------------------------------------------------------------- */
 
@@ -152,8 +156,8 @@ static void timerPoll(void)
 }
 
 static void buildReport(void){
-    
-    uchar key; 
+    uchar modifier;
+    uchar key;
 
     if(newReport == 0){    
         if (buttonChanged_B1 == 1){
@@ -164,7 +168,9 @@ static void buildReport(void){
                 key = 30; // key = '1'
             }
             buttonChanged_B1 = 0;
+#ifdef BUTTON_1_USED
             reportBuffer[2] = key;
+#endif
         }
 
 
@@ -176,7 +182,9 @@ static void buildReport(void){
                 key = 31;  // key = '2'
             }
             buttonChanged_B2 = 0;
+#ifdef BUTTON_2_USED
             reportBuffer[3] = key;
+#endif
         }
         if(buttonChanged_B3 == 1){
             if (buttonState_B3 != 0){ // if button 3 is pressed
@@ -186,17 +194,24 @@ static void buildReport(void){
                 key = 32; // key = '3'
             }
             buttonChanged_B3 = 0;
+#ifdef BUTTON_3_USED
             reportBuffer[4] = key;
+#endif
         }
-        if(buttonChanged_B4 == 1){
+        if(buttonChanged_B4 == 1){ // ALT + a
             if (buttonState_B4 != 0){ // if button 4 is pressed
                 key = 0; //button released event
+                modifier = 0;
             } 
             else {
-                key = 33;  // key = '4'
+                modifier = 1<<2; // ALT
+                key = 4;  // key = 'a'
             }
             buttonChanged_B4 = 0;
+#ifdef BUTTON_4_USED
+            reportBuffer[0] = modifier;
             reportBuffer[5] = key;
+#endif
         }
     
         newReport = 1;; //if no button has changed, the previous report will be sent
