@@ -1,0 +1,6 @@
+C:\Program Files (x86)\Arduino\hardware\tools\avr/bin/avrdude.exe
+
+
+No CLKDIV8, no CK out, super fast SUT, PLL: 16MHz
+lfuse: 1100 0001
+-U lfuse:w:0xC1:m -e -v -pattiny85 -carduino -PCOM8 -b19200 -D -Uflash:w:"$(BinDir)\XC8Application1.hex":i -C"C:\Program Files (x86)\Arduino\hardware\tools\avr\etc\avrdude.conf"
